@@ -1,0 +1,34 @@
+// Base colours
+
+// Brand colours
+
+// Core colours
+
+$c__bg: #eff0f0;
+$c__text: #111a1a;
+$c__accent-bright: #3399aa;
+$c__accent-dark: #226677;
+$c__link: $c__accent-dark;
+$c__link-hover: $c__accent-bright;
+
+
+// fonts
+$font__deco: serif;
+$font__basic: sans-serif;
+
+
+$scale-tiny: 1.12;
+$scale-small: 1.15;
+$scale-mid: 1.25;
+$scale-big: 1.33;
+
+// Layout vars
+$content-width: 45em;
+
+
+// break points
+
+$break__type-tiny: 500px;
+$break__type-small: 800px;
+$break__type-big: 1200px;
+$break__sticky-footer: $break__type-small;

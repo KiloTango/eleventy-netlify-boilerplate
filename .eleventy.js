@@ -3,8 +3,29 @@ const CleanCSS = require("clean-css");
 const UglifyJS = require("uglify-es");
 const htmlmin = require("html-minifier");
 const eleventyNavigationPlugin = require("@11ty/eleventy-navigation");
+const pluginSass = require("eleventy-plugin-sass");
+const Image = require("@11ty/eleventy-img");
+const pluginBabel = require('eleventy-plugin-babel');
+
+async function imageShortcode(src, alt, sizes) {
+  let metadata = await Image(src, {
+    widths: [300, 600, null],
+    formats: [null]
+  });
+
+  let imageAttributes = {
+    alt,
+    sizes,
+    loading: "lazy",
+    decoding: "async",
+  };
+
+  // You bet we throw an error on missing alt in `imageAttributes` (alt="" works okay)
+  return Image.generateHTML(metadata, imageAttributes);
+}
 
 module.exports = function(eleventyConfig) {
+
 
   // Eleventy Navigation https://www.11ty.dev/docs/plugins/navigation/
   eleventyConfig.addPlugin(eleventyNavigationPlugin);
@@ -47,9 +68,23 @@ module.exports = function(eleventyConfig) {
     return DateTime.fromJSDate(dateObj).toFormat("yyyy-MM-dd");
   });
 
+  // Sass
+  eleventyConfig.addPlugin(pluginSass, {
+    sourcemaps: true,
+    outputDir: '_site/assets/css'
+  });
+
   // Minify CSS
   eleventyConfig.addFilter("cssmin", function(code) {
     return new CleanCSS({}).minify(code).styles;
+  });
+
+  // Babel
+  eleventyConfig.addPlugin(pluginBabel, {
+    outputDir: '_site/assets/js',
+    Uglify: true,
+    sourceMaps: true,
+    watch: "_includes/assets/**/*.js"
   });
 
   // Minify JS
@@ -96,6 +131,10 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.setLibrary("md", markdownIt(options)
     .use(markdownItAnchor, opts)
   );
+
+  eleventyConfig.addNunjucksAsyncShortcode("image", imageShortcode);
+  eleventyConfig.addLiquidShortcode("image", imageShortcode);
+  eleventyConfig.addJavaScriptFunction("image", imageShortcode);
 
   return {
     templateFormats: ["md", "njk", "html", "liquid"],

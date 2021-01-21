@@ -1,0 +1,47 @@
+
+
+@function pow($number, $exponent) {
+  $value: 1;
+
+  @if $exponent > 0 {
+    @for $i from 1 through $exponent {
+      $value: $value * $number;
+    }
+  } @else if $exponent < 0 {
+    @for $i from 1 through -$exponent {
+      $value: $value / $number;
+    }
+  }
+
+  @return $value;
+}
+
+@mixin type-size($power) {
+  font-size: 1rem * pow($scale-tiny, $power);
+
+  @media (min-width: $break__type-tiny) {
+    font-size: 1rem * pow($scale-small, $power);
+  }
+
+  @media (min-width: $break__type-small) {
+    font-size: 1rem * pow($scale-mid, $power);
+  }
+
+  // @media (min-width: $break__type-big) {
+  //   font-size: 1rem * math.pow($scale-big, $power);
+  // }
+}
+
+@mixin skewiff($angle) {
+  transform: rotateZ($angle);
+  .content {
+    transform: rotateZ(#{0 - $angle});
+  }
+}
+
+@mixin triggered() {
+  &:hover,
+  &:focus {
+    @content;
+  }
+}

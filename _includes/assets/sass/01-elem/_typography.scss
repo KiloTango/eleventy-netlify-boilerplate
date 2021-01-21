@@ -1,0 +1,46 @@
+
+
+html {
+  font-size: 14px;
+
+  @media (min-width: $break__type-tiny) {
+    font-size: 16px;
+  }
+
+  @media (min-width: $break__type-small) {
+    font-size: 18px;
+  }
+
+  @media (min-width: $break__type-big) {
+    font-size: 20px;
+  }
+}
+
+body {
+  font-family: $font__basic;
+  background: $c__bg url('../img/paper.jpg');
+  color: $c__text;
+}
+
+a {
+  color: $c__link;
+  text-decoration: none;
+  @include triggered {
+    color: $c__link-hover;
+    text-decoration: underline;
+    text-decoration-skip-ink: auto;
+    text-decoration-skip: spaces;
+  }
+}
+
+h1, h2, h3, h4 {
+  font-family: $font__deco;
+}
+
+h3 {
+  @include type-size(3);
+}
+
+h2 {
+  @include type-size(4);
+}

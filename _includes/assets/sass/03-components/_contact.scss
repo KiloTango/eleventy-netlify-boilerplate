@@ -1,0 +1,46 @@
+.contact {
+  .nope {
+    display: none;
+  }
+
+  label {
+    display: block;
+  }
+
+  label,
+  button {
+    font-family: $font__deco;
+    @include type-size(1);
+  }
+
+  label,
+  input,
+  textarea,
+  button {
+    width: 100%;
+  }
+
+  input,
+  textarea {
+    background: $c__bg;
+    border: 2px solid $c__accent-dark;
+    padding: 0.5em;
+    &:active,
+    &:focus {
+      border: 2px solid $c__accent-bright;
+      outline: none;
+    }
+  }
+
+  .row + .row {
+    margin-top: 1em;
+  }
+
+  button {
+    background: $c__accent-dark;
+    border: none;
+    padding: 0.5em;
+    margin-top: 1em;
+    color: $c__bg;
+  }
+}
